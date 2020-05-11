@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <title>My tacos list</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <script crossorigin="anonymous" src="../../static/js/main.js" th:src="@{/js/tacos.js}"
+            type="text/javascript"></script>
+
+</head>
+<body>
+<div class="container"><br/>
+    <p>Go to <a th:href="@{/}">homepage</a></p>
+    <h2>My tacos list</h2>
+    <table class="table table-bordered table-hover"
+           data-row-style="rowStyle" id="taco-table">
+        <thead>
+        <tr>
+            <th> Creation date</th>
+            <th> Name</th>
+            <th> Ingredients</th>
+            <th> Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${userTacos.empty}">
+            <td colspan="2"> No tacos</td>
+        </tr>
+        <tr th:each="taco : ${userTacos}">
+            <td><span th:text="${taco.createdat}"> Title </span></td>
+            <td><span th:text="${taco.name}"> Name </span></td>
+            <td>
+                <span th:each="ingredient : ${taco.ingredients}">
+                      <span th:text="${ingredient.name}">INGREDIENT</span>,
+                </span>
+            </td>
+            <td>
+                <form method="post" th:action="@{|/design/add/${taco.id}|}">
+                    <input type="submit" value="Add to order"/>
+                </form>
+
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div class="row" th:fragment="pagination">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                        <a class="page-link" th:href="@{|/tacos/${pageNumber}|}" th:text=${pageNumber}>1</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+</body>
+</html>
