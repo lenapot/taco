@@ -8,3 +8,7 @@ It uses the following technologies:
 - Bootstrap.
 
 The application is based on ideas from the book Spring in Action (5th edition).
+
+
+The taco application allows you to order tacos, as well as view a list of created tacos and your orders.
+As administrator you can also change the order status.
