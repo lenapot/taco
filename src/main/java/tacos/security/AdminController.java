@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import tacos.Order;
 import tacos.service.OrderService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,7 +24,7 @@ public class AdminController {
     @RequestMapping(value = {"/orders/{page}", "/orders"})
     public String showAllByPage(@PathVariable(name = "page", required = false) Optional<Integer> page,
                                 Model model) {
-        int pageNum = page.isPresent() ? page.get() : 1;
+        int pageNum = page.orElse(1);
         Page<Order> orderPage = orderService.getAllOrders(pageNum);
         int totalPages = orderPage.getTotalPages();
         if(totalPages > 0) {
@@ -56,4 +55,5 @@ public class AdminController {
     public Order findOne(long id) {
         return orderService.getOrder(id);
     }
+
 }

@@ -30,4 +30,9 @@ public class Taco {
         this.createdat = new Date();
     }
 
+    @Override
+    public String toString(){
+        return String.format("%s: %s", name, ingredients);
+    }
+
 }

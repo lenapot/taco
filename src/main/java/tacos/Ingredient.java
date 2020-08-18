@@ -23,7 +23,12 @@ public class Ingredient {
     @Enumerated(EnumType.STRING)
     private final Type type;
 
-    public static enum Type {
+    public enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s", name);
     }
 }

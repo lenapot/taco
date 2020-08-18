@@ -34,11 +34,10 @@ public class RegistrationController {
 
     @PostMapping
     public String processRegistration(RegistrationForm form) {
-        Role userRole = roleRepository.findByName("ROLE_USER");
+        Role userRole = roleRepository.findByName("USER");
         form.setRoles(Arrays.asList(userRole));
         userRepo.save(form.toUser(passwordEncoder));
         return "registration_thankyou";
-//        return "redirect:/login";
     }
 
 }

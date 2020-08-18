@@ -36,8 +36,7 @@ public class TacoServiceImpl implements TacoService{
     //todo: Optional правильно обработать
     public Taco getTaco(long tacoId) {
         Optional<Taco> optionalTaco = tacoRepository.findById(tacoId);
-        return optionalTaco.isPresent() ?
-                optionalTaco.get() : optionalTaco.orElseThrow(RuntimeException::new);
+        return optionalTaco.orElseGet(() -> optionalTaco.orElseThrow(RuntimeException::new));
     }
 
     @Override
@@ -45,7 +44,7 @@ public class TacoServiceImpl implements TacoService{
         PageRequest pageable = PageRequest.of(pageNum - 1, props.getPageSize());
         List<Order> orderPage = orderService.getOrdersByUser(user);
         List<Taco> userTacos = orderPage.stream()
-                .map(order -> order.getTacos())
+                .map(Order::getTacos)
                 .flatMap(List::stream)
                 .distinct()
                 .collect(Collectors.toList());

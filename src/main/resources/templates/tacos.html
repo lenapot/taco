@@ -37,9 +37,10 @@
             </td>
             <td>
                 <form method="post" th:action="@{|/design/add/${taco.id}|}">
+                    <label class="col-form-label" for="id">Count:</label>
+                    <input name="tacoCount" type="number" th:value="*{tacoCount}">
                     <input type="submit" value="Add to order"/>
                 </form>
-
             </td>
 
         </tr>

@@ -50,8 +50,7 @@ public class OrderServiceImpl implements OrderService{
     //todo: Optional правильно обработать
     public Order getOrder(long orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        return optionalOrder.isPresent() ?
-                optionalOrder.get() : optionalOrder.orElseThrow(RuntimeException::new);
+        return optionalOrder.orElseGet(() -> optionalOrder.orElseThrow(RuntimeException::new));
     }
 
     @Override

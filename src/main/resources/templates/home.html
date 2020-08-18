@@ -24,6 +24,10 @@
         <a th:href="@{/tacos}" id="tacos">Show my tacos</a>
         <br>
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/orders}" id="admin">Admin</a>
+        <br>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/report/ordersPerMonth}" id="report1">Report: Orders per month</a>
+         <br>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/report/cities}" id="report2">Report: Cities that order most tacos</a>
     </div>
 
     <div sec:authorize="!isAuthenticated()">

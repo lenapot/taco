@@ -46,7 +46,7 @@ public class DesignTacoController {
     @GetMapping
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredientService.findAll().forEach(i -> ingredients.add(i));
+        ingredients.addAll(ingredientService.findAll());
 
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
@@ -73,13 +73,15 @@ public class DesignTacoController {
     }
 
     @PostMapping(value = {"/add/{tacoId}"})
-    public String addDesign(@PathVariable(name = "tacoId", required = true) Optional<Long> tacoId,
+    public String addDesign(@PathVariable(name = "tacoId") Optional<Long> tacoId,
+                            @RequestParam(name = "tacoCount") Optional<Integer> tacoCount,
                                 @ModelAttribute Order order) {
-        long id = tacoId.isPresent() ? tacoId.get() : tacoId.orElseThrow(RuntimeException::new);
+        long id = tacoId.orElseGet(() -> tacoId.orElseThrow(RuntimeException::new));
+        int tacoCountVal = tacoCount.orElseGet(() -> tacoCount.orElseThrow(RuntimeException::new));
 
         log.info("Adding existing taco with id : " + id);
         Taco existing = tacoService.getTaco(id);
-        order.addDesign(existing);
+        order.addDesign(existing, tacoCountVal);
 
         return "redirect:/orders/current";
     }

@@ -39,7 +39,7 @@ public class TacoController {
                                   @AuthenticationPrincipal User user,
                                   Model model) {
 
-        int pageNum = page.isPresent() ? page.get() : 1;
+        int pageNum = page.orElse(1);
         Page<Taco> tacoPage = tacoService.getTacosByUser(user, pageNum);
         model.addAttribute("userTacos", tacoPage.getContent());
         List<Integer> pageNumbers = IntStream.rangeClosed(1, tacoPage.getTotalPages())

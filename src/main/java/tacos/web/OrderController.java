@@ -62,11 +62,11 @@ public class OrderController {
     public String showOrdersForUser(@PathVariable(name = "page", required = false) Optional<Integer> page,
                                 @AuthenticationPrincipal User user,
                                 Model model) {
-        int pageNum = page.isPresent() ? page.get() : 1;
+        int pageNum = page.orElse(1);
         Page<Order> orderPage = orderService.getOrdersByUser(user, pageNum);
 
         int totalPages = orderPage.getTotalPages();
-        if(totalPages > 0) {
+        if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }

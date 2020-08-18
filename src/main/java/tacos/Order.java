@@ -62,12 +62,18 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Order.Status status;
 
-    public static enum Status {
+    public enum Status {
         PROCCESSING, DONE
     }
 
     public void addDesign(Taco design) {
         this.tacos.add(design);
+    }
+
+    public void addDesign(Taco design, int count) {
+        for (int i = 0; i < count; i++) {
+            this.tacos.add(design);
+        }
     }
 
     @PrePersist

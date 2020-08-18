@@ -1,9 +1,6 @@
 package tacos;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,8 +10,6 @@ import java.util.*;
 
 @Entity
 @Data
-//@NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
-//@RequiredArgsConstructor
 @Table(name="users")
 public class User implements UserDetails {
 
@@ -33,8 +28,6 @@ public class User implements UserDetails {
     private String zip;
     private String phoneNumber;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "roleid"))
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private List<Role> roles;
 
