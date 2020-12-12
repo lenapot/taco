@@ -18,7 +18,7 @@ create table if not exists public.roles
     CONSTRAINT roles_pkey PRIMARY KEY (id)
 );
 
-create table if not exists public.taco
+CREATE TABLE if not exists public.taco_type
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     name character varying(50) COLLATE pg_catalog."default" NOT NULL,
@@ -26,16 +26,31 @@ create table if not exists public.taco
     CONSTRAINT taco_pkey PRIMARY KEY (id)
 );
 
-create table if not exists public.taco_ingredients
+
+CREATE TABLE public.taco
 (
-    taco_id bigint NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+--     createdat timestamp without time zone NOT NULL,
+    order_id integer,
+    tacotype_id integer,
+    CONSTRAINT taco_pkey1 PRIMARY KEY (id),
+    CONSTRAINT taco_taco_type_fkey FOREIGN KEY (tacotype_id)
+        REFERENCES public.taco_type (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+
+CREATE TABLE public.taco_type_ingredients
+(
+    taco_type_id bigint NOT NULL,
     ingredients_id character varying(4) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT taco_ingredients_ingredient_fkey FOREIGN KEY (ingredients_id)
         REFERENCES public.ingredient (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT taco_ingredients_taco_fkey FOREIGN KEY (taco_id)
-        REFERENCES public.taco (id) MATCH SIMPLE
+    CONSTRAINT taco_ingredients_taco_fkey FOREIGN KEY (taco_type_id)
+        REFERENCES public.taco_type (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -57,19 +72,19 @@ CREATE TABLE if not exists public.taco_order
     CONSTRAINT taco_order_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE if not exists public.taco_order_tacos
-(
-    order_id bigint NOT NULL,
-    tacos_id bigint NOT NULL,
-    CONSTRAINT taco_order_tacos_taco_fkey FOREIGN KEY (tacos_id)
-        REFERENCES public.taco (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT taco_order_tacos_tacoorder_fkey FOREIGN KEY (order_id)
-        REFERENCES public.taco_order (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
+-- CREATE TABLE if not exists public.taco_order_tacos
+-- (
+--     order_id bigint NOT NULL,
+--     tacos_id bigint NOT NULL,
+--     CONSTRAINT taco_order_tacos_taco_fkey FOREIGN KEY (tacos_id)
+--         REFERENCES public.taco (id) MATCH SIMPLE
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION,
+--     CONSTRAINT taco_order_tacos_tacoorder_fkey FOREIGN KEY (order_id)
+--         REFERENCES public.taco_order (id) MATCH SIMPLE
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION
+-- );
 
 CREATE TABLE public.users
 (

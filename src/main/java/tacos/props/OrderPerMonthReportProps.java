@@ -1,4 +1,4 @@
-package tacos.web;
+package tacos.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,11 +9,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Component
-@ConfigurationProperties(prefix="taco.orders")
+@ConfigurationProperties(prefix="taco.report.orderspermonth")
 @Data
 @Validated
-public class OrderProps {
-    @Min(value=5, message="must be between 5 and 25")
-    @Max(value=25, message="must be between 5 and 25")
-    private int pageSize = 20;
+public class OrderPerMonthReportProps extends ReportProps{
+
+    private String sourcePath = "orders_per_month.jrxml";
+    private String reportName = "ordersPerMonth.pdf";
 }

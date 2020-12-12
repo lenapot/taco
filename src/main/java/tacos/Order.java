@@ -1,6 +1,9 @@
 package tacos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
+@Getter @Setter
 @Table(name = "Taco_Order")
 public class Order {
 
@@ -56,7 +59,8 @@ public class Order {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
 
-    @ManyToMany(targetEntity = Taco.class)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Taco> tacos = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
@@ -79,5 +83,10 @@ public class Order {
     @PrePersist
     void placedAt(){
         this.placedAt = new Date();
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s %s", getId(), getName());
     }
 }

@@ -18,7 +18,7 @@
         <tr>
             <th> Creation date</th>
             <th> Name</th>
-            <th> Ingredients</th>
+            <th> Tacos</th>
             <th> Status</th>
             <th sec:authorize="hasAuthority('ADMIN')"> Action</th>
         </tr>
@@ -31,21 +31,24 @@
             th:style="${#strings.toString(order.status)} == 'DONE' ? 'background: #b6d480;' : 'background: #f0f0f2;'">
             <td><span th:text="${order.placedAt}"> Creation date </span></td>
             <td><span th:text="${order.name}"> Title </span></td>
-            <td>
-                <ul>
-                    <li th:each="taco : ${order.tacos}">
-                        <span th:text="${taco.name}"></span> :
-                        <span th:each="ingredient : ${taco.ingredients}">
-              <span th:text="${ingredient.name}">INGREDIENT</span>,
-            </span>
-                    </li>
-                </ul>
-            </td>
+            <td><span style="white-space: pre-wrap" th:text="${order.tacos}"> Title </span></td>
+
+<!--            <td>-->
+<!--                <ul>-->
+<!--                    <li th:each="taco : ${order.tacos}">-->
+<!--                        <span th:text="${taco.tacotype.name}"></span> :-->
+<!--                        <span th:each="ingredient : ${taco.tacotype.ingredients}">-->
+<!--              <span th:text="${ingredient.name}">INGREDIENT</span>,-->
+<!--            </span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </td>-->
             <td><span th:text="${order.status}"> Status </span></td>
             <!--            <td><a th:href="@{/admin/orders/{orderId}/edit(orderId=${order.id})}">Edit</a></td>-->
-            <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-primary eBtn"
-                                                         th:href="@{/admin/findOne/(id=${order.id})}">
-                Edit</a></td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-primary eBtn" th:href="@{/admin/findOne(id=${order.id})}">
+                Edit</a>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -3,14 +3,15 @@ package tacos.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tacos.Order;
+import tacos.OrderVo;
 import tacos.User;
 import tacos.data.OrderRepository;
-import tacos.web.OrderProps;
+import tacos.props.OrderProps;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,27 +29,36 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Page<Order> getOrdersByUser(User user, int pageNum) {
+    public Page<OrderVo> getOrdersByUser(User user, int pageNum) {
         PageRequest pageable = PageRequest.of(pageNum - 1, props.getPageSize());
-        Page<Order> orderPage = orderRepository.findByUserOrderByPlacedAtDesc(user, pageable);
+        Page<OrderVo> orderPage = orderRepository.findByUserOrderByPlacedAtDesc(user, pageable);
+        orderPage.forEach(order -> {
+            String tacosStr = getTacosWithCountInStr(order.getId());
+            order.setTacos(tacosStr);
+        });
         return orderPage;
     }
 
     @Override
     public List<Order> getOrdersByUser(User user) {
-        Page<Order> orderPage = orderRepository.findByUserOrderByPlacedAtDesc(user, Pageable.unpaged());
-        return orderPage.getContent();
+        List<Order> orderList = orderRepository.findByUserOrderByPlacedAtDesc(user);
+        return orderList;
     }
 
     @Override
-    public Page<Order> getAllOrders(int pageNum) {
+    public Page<OrderVo> getAllOrders(int pageNum) {
         PageRequest pageable = PageRequest.of(pageNum - 1, props.getPageSize());
-        return orderRepository.findAllByOrderByPlacedAtDesc(pageable);
+        Page<OrderVo> orders = orderRepository.findAllByOrderByPlacedAtDesc(pageable);
+        orders.forEach(order -> {
+            String tacosStr = getTacosWithCountInStr(order.getId());
+            order.setTacos(tacosStr);
+        });
+        return orders;
     }
 
     @Override
     //todo: Optional правильно обработать
-    public Order getOrder(long orderId) {
+    public Order getOrder(Long orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         return optionalOrder.orElseGet(() -> optionalOrder.orElseThrow(RuntimeException::new));
     }
@@ -58,5 +68,18 @@ public class OrderServiceImpl implements OrderService{
         Order existing = orderRepository.findById(order.getId()).get();
         existing.setStatus(order.getStatus());
         orderRepository.save(existing);
+    }
+
+    @Override
+    public String getTacosWithCountInStr(Long orderId) {
+        List<Map<String, Object>> tacos =
+                orderRepository.getTacosCountByType(orderId);
+
+        StringBuilder tacosSb = new StringBuilder();
+        tacos.forEach(taco ->
+                tacosSb.append(String.format("%s - %d pcs", taco.get("tacotype"), taco.get("count")))
+                        .append("\n")
+        );
+        return tacosSb.toString();
     }
 }

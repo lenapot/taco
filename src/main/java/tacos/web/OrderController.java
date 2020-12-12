@@ -10,8 +10,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import tacos.Order;
+import tacos.OrderVo;
 import tacos.User;
 import tacos.service.OrderService;
+import tacos.service.TacoService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +29,9 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private TacoService tacoService;
 
     public OrderController() {
     }
@@ -50,6 +55,12 @@ public class OrderController {
         order.setName(user.getFullname());
         order.setStatus(Order.Status.PROCCESSING);
 
+
+        order.getTacos().stream()
+                .forEach(taco -> {
+                    taco.setOrder(order);
+                });
+
         orderService.saveOrder(order);
 
         sessionStatus.setComplete();
@@ -63,7 +74,7 @@ public class OrderController {
                                 @AuthenticationPrincipal User user,
                                 Model model) {
         int pageNum = page.orElse(1);
-        Page<Order> orderPage = orderService.getOrdersByUser(user, pageNum);
+        Page<OrderVo> orderPage = orderService.getOrdersByUser(user, pageNum);
 
         int totalPages = orderPage.getTotalPages();
         if (totalPages > 0) {

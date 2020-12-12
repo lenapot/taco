@@ -23,37 +23,37 @@ public class JdbcTacoRepository /*implements TacoRepository*/ {
         this.jdbc = jdbc;
     }
 
-    //@Override
-    public Taco save(Taco taco) {
-        long tacoId = saveTacoInfo(taco);
-        taco.setId(tacoId);
-        for (Ingredient ingredient : taco.getIngredients()) {
-            saveIngredientToTaco(ingredient, tacoId);
-        }
+//    //@Override
+//    public Taco save(Taco taco) {
+//        long tacoId = saveTacoInfo(taco);
+//        taco.setId(tacoId);
+//        for (Ingredient ingredient : taco.getIngredients()) {
+//            saveIngredientToTaco(ingredient, tacoId);
+//        }
+//
+//        return taco;
+//    }
 
-        return taco;
-    }
-
-    private long saveTacoInfo(Taco taco) {
-        taco.setCreatedat(new Date());
-
-        PreparedStatementCreatorFactory preparedStatementCreatorFactory =
-                new PreparedStatementCreatorFactory(
-                        "insert into Taco (name, createdAt) values (?, ?)",
-                        Types.VARCHAR, Types.TIMESTAMP
-                );
-        preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
-        PreparedStatementCreator psc =
-                preparedStatementCreatorFactory.newPreparedStatementCreator(
-                        Arrays.asList(
-                                taco.getName(),
-                                new Timestamp(taco.getCreatedat().getTime())));
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbc.update(psc, keyHolder);
-
-        return keyHolder.getKey().longValue();
-    }
+//    private long saveTacoInfo(Taco taco) {
+//        taco.setCreatedat(new Date());
+//
+//        PreparedStatementCreatorFactory preparedStatementCreatorFactory =
+//                new PreparedStatementCreatorFactory(
+//                        "insert into Taco (name, createdAt) values (?, ?)",
+//                        Types.VARCHAR, Types.TIMESTAMP
+//                );
+//        preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
+//        PreparedStatementCreator psc =
+//                preparedStatementCreatorFactory.newPreparedStatementCreator(
+//                        Arrays.asList(
+//                                taco.getName(),
+//                                new Timestamp(taco.getCreatedat().getTime())));
+//
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbc.update(psc, keyHolder);
+//
+//        return keyHolder.getKey().longValue();
+//    }
 
     private void saveIngredientToTaco(
             Ingredient ingredient, long tacoId) {

@@ -1,11 +1,13 @@
 package tacos.service;
 
 
+import tacos.OrderVo;
+
 import java.util.List;
 import java.util.Map;
 
 public interface ReportService {
 
-    List<Map<String, Object>> getOrdersPerMonth();
-    List<Map<String, Integer>> getOrdersCountByCities();
+    List<OrderVo> getOrdersPerMonth();
+    List<Map<String, Integer>> getOrderCountByCities();
 }

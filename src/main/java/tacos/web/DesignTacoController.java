@@ -11,8 +11,10 @@ import tacos.Ingredient;
 import tacos.Ingredient.Type;
 import tacos.Order;
 import tacos.Taco;
+import tacos.TacoType;
 import tacos.service.IngredientService;
 import tacos.service.TacoService;
+import tacos.service.TacoTypeService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class DesignTacoController {
 
     @Autowired
     TacoService tacoService;
+
+    @Autowired
+    TacoTypeService tacoTypeService;
 
     @Autowired
     IngredientService ingredientService;
@@ -53,12 +58,12 @@ public class DesignTacoController {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
-        model.addAttribute("design", new Taco());
+        model.addAttribute("design", new TacoType());
         return "design";
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco design,
+    public String processDesign(@Valid TacoType design,
                                 Errors errors,
                                 @ModelAttribute Order order) {
         if (errors.hasErrors()) {
@@ -66,8 +71,10 @@ public class DesignTacoController {
         }
 
         log.info("Processing design: " + design);
-        Taco saved = tacoService.saveTaco(design);
-        order.addDesign(saved);
+        TacoType saved = tacoTypeService.saveTacoType(design);
+        Taco newTaco = new Taco();
+        newTaco.setTacotype(saved);
+        order.addDesign(newTaco);
 
         return "redirect:/orders/current";
     }
@@ -75,14 +82,19 @@ public class DesignTacoController {
     @PostMapping(value = {"/add/{tacoId}"})
     public String addDesign(@PathVariable(name = "tacoId") Optional<Long> tacoId,
                             @RequestParam(name = "tacoCount") Optional<Integer> tacoCount,
-                                @ModelAttribute Order order) {
+                            @ModelAttribute Order order) {
         long id = tacoId.orElseGet(() -> tacoId.orElseThrow(RuntimeException::new));
         int tacoCountVal = tacoCount.orElseGet(() -> tacoCount.orElseThrow(RuntimeException::new));
 
         log.info("Adding existing taco with id : " + id);
-        Taco existing = tacoService.getTaco(id);
-        order.addDesign(existing, tacoCountVal);
+        TacoType existingTacoType = tacoTypeService.getTacoType(id);
 
+        for (int i = 0; i < tacoCountVal; i++) {
+            Taco tacoToAdd = new Taco();
+            tacoToAdd.setTacotype(existingTacoType);
+            order.addDesign(tacoToAdd);
+
+        }
         return "redirect:/orders/current";
     }
 

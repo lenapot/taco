@@ -6,9 +6,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import tacos.Order;
-import tacos.Taco;
+import tacos.TacoType;
 import tacos.User;
-import tacos.data.TacoRepository;
+import tacos.data.TacoTypeRepository;
 import tacos.props.OrderProps;
 
 import java.util.List;
@@ -16,43 +16,44 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TacoServiceImpl implements TacoService{
+public class TacoTypeServiceImpl implements TacoTypeService{
 
     @Autowired
     private OrderProps props;
 
     @Autowired
-    TacoRepository tacoRepository;
+    TacoTypeRepository tacoTypeRepository;
 
     @Autowired
     OrderService orderService;
 
     @Override
-    public Taco saveTaco(Taco taco) {
-        return tacoRepository.save(taco);
+    public TacoType saveTacoType(TacoType tacoType) {
+        return tacoTypeRepository.save(tacoType);
     }
 
     @Override
     //todo: Optional правильно обработать
-    public Taco getTaco(long tacoId) {
-        Optional<Taco> optionalTaco = tacoRepository.findById(tacoId);
-        return optionalTaco.orElseGet(() -> optionalTaco.orElseThrow(RuntimeException::new));
+    public TacoType getTacoType(long tacoId) {
+        Optional<TacoType> optionalTacoType = tacoTypeRepository.findById(tacoId);
+        return optionalTacoType.orElseGet(() -> optionalTacoType.orElseThrow(RuntimeException::new));
     }
 
     @Override
-    public Page<Taco> getTacosByUser(User user, int pageNum) {
+    public Page<TacoType> getTacoTypesByUser(User user, int pageNum) {
         PageRequest pageable = PageRequest.of(pageNum - 1, props.getPageSize());
         List<Order> orderPage = orderService.getOrdersByUser(user);
-        List<Taco> userTacos = orderPage.stream()
+        List<TacoType> userTacos = orderPage.stream()
                 .map(Order::getTacos)
                 .flatMap(List::stream)
+                .map(taco -> taco.getTacotype())
                 .distinct()
                 .collect(Collectors.toList());
 
         int start = (int) pageable.getOffset();
         int end = (start + pageable.getPageSize()) > userTacos.size() ? userTacos.size() : (start + pageable.getPageSize());
 
-        Page<Taco> tacoPage = new PageImpl<Taco>(userTacos.subList(start, end), pageable, userTacos.size());
+        Page<TacoType> tacoPage = new PageImpl<TacoType>(userTacos.subList(start, end), pageable, userTacos.size());
 
         return tacoPage;
     }

@@ -3,36 +3,24 @@ package tacos;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
+
 
 @Data
 @Entity
+@Table(name = "taco")
 public class Taco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date createdat;
 
-    @NotNull
-    @Size(min=5, message="Name must be at least 5 characters long")
-    private String name;
+    @ManyToOne
+    private TacoType tacotype;
 
-    @ManyToMany(targetEntity = Ingredient.class)
-    @Size(min=1, message="You must choose at least 1 ingredient")
-    private List<Ingredient> ingredients;
+    @JoinColumn(name="order_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
 
-    @PrePersist
-    void createdAt(){
-        this.createdat = new Date();
-    }
 
-    @Override
-    public String toString(){
-        return String.format("%s: %s", name, ingredients);
-    }
 
 }

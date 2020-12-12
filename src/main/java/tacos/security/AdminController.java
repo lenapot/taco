@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tacos.Order;
+import tacos.OrderVo;
 import tacos.service.OrderService;
 
+import javax.xml.ws.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,7 +27,7 @@ public class AdminController {
     public String showAllByPage(@PathVariable(name = "page", required = false) Optional<Integer> page,
                                 Model model) {
         int pageNum = page.orElse(1);
-        Page<Order> orderPage = orderService.getAllOrders(pageNum);
+        Page<OrderVo> orderPage = orderService.getAllOrders(pageNum);
         int totalPages = orderPage.getTotalPages();
         if(totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
@@ -38,7 +40,7 @@ public class AdminController {
     }
 
     @PostMapping(value = {"/orders/update"})
-    public String updateContact(Order order, Model model) {
+    public String updateOrder(Order order, Model model) {
         try {
             orderService.updateOrderStatus(order);
             return "redirect:/admin/orders";
@@ -52,8 +54,9 @@ public class AdminController {
 
     @GetMapping("/findOne")
     @ResponseBody
-    public Order findOne(long id) {
-        return orderService.getOrder(id);
+    public Order findOne(@RequestParam(name = "id") long id) {
+        Order order = orderService.getOrder(id);
+        return order;
     }
 
 }

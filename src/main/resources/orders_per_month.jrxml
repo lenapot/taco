@@ -120,8 +120,10 @@
 							</jr:tableHeader>
 							<jr:detailCell style="Table_TD" height="30">
 								<textField>
-									<reportElement x="0" y="0" width="110" height="30" uuid="316305b3-ee24-47a2-9155-35f62933aa82"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="30" uuid="fbf0944f-ecc7-4c32-a745-6dfe086f6a05"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Times New Roman"/>
+									</textElement>
 									<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
