@@ -1,7 +1,6 @@
 package tacos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.CreditCardNumber;
@@ -26,7 +25,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date placedAt;
 
@@ -72,12 +70,6 @@ public class Order {
 
     public void addDesign(Taco design) {
         this.tacos.add(design);
-    }
-
-    public void addDesign(Taco design, int count) {
-        for (int i = 0; i < count; i++) {
-            this.tacos.add(design);
-        }
     }
 
     @PrePersist

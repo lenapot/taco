@@ -13,8 +13,6 @@ import tacos.Order;
 import tacos.OrderVo;
 import tacos.User;
 import tacos.service.OrderService;
-import tacos.service.TacoService;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +27,6 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    private TacoService tacoService;
 
     public OrderController() {
     }
@@ -55,16 +50,13 @@ public class OrderController {
         order.setName(user.getFullname());
         order.setStatus(Order.Status.PROCCESSING);
 
-
-        order.getTacos().stream()
-                .forEach(taco -> {
-                    taco.setOrder(order);
-                });
+        order.getTacos()
+                .forEach(taco -> taco.setOrder(order));
 
         orderService.saveOrder(order);
 
         sessionStatus.setComplete();
-        //log.info("Order submitted: " + order);
+        log.info("Order submitted: " + order);
 
         return "thankyou";
     }

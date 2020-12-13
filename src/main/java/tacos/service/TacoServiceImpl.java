@@ -33,7 +33,6 @@ public class TacoServiceImpl implements TacoService{
     }
 
     @Override
-    //todo: Optional правильно обработать
     public Taco getTaco(long tacoId) {
         Optional<Taco> optionalTaco = tacoRepository.findById(tacoId);
         return optionalTaco.orElseGet(() -> optionalTaco.orElseThrow(RuntimeException::new));

@@ -32,19 +32,7 @@
             <td><span th:text="${order.placedAt}"> Creation date </span></td>
             <td><span th:text="${order.name}"> Title </span></td>
             <td><span style="white-space: pre-wrap" th:text="${order.tacos}"> Title </span></td>
-
-<!--            <td>-->
-<!--                <ul>-->
-<!--                    <li th:each="taco : ${order.tacos}">-->
-<!--                        <span th:text="${taco.tacotype.name}"></span> :-->
-<!--                        <span th:each="ingredient : ${taco.tacotype.ingredients}">-->
-<!--              <span th:text="${ingredient.name}">INGREDIENT</span>,-->
-<!--            </span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </td>-->
             <td><span th:text="${order.status}"> Status </span></td>
-            <!--            <td><a th:href="@{/admin/orders/{orderId}/edit(orderId=${order.id})}">Edit</a></td>-->
             <td sec:authorize="hasAuthority('ADMIN')">
                 <a class="btn btn-primary eBtn" th:href="@{/admin/findOne(id=${order.id})}">
                 Edit</a>
@@ -65,15 +53,15 @@
         </div>
         <div class="col-md-2"></div>
     </div>
-    <div class="myForm">
+    <div class="editOrderForm">
         <form action="#" method="post" th:action="@{/admin/orders/update}" th:object="${order}">
-            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
-                 id="exampleModal" role="dialog"
+            <div aria-hidden="true" aria-labelledby="editOrderModalLabel" class="modal fade"
+                 id="editOrderModal" role="dialog"
                  tabindex="-1">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                            <h5 class="modal-title" id="editOrderModalLabel">Update</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -108,8 +96,6 @@
             </div>
         </form>
     </div>
-
-
 </div>
 </body>
 </html>
