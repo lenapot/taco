@@ -10,5 +10,6 @@ It uses the following technologies:
 The application is based on ideas from the book Spring in Action (5th edition).
 
 
-The taco application allows you to order tacos, as well as view a list of created tacos and your orders.
-As administrator you can also change the order status.
+The app allows you to create your own tacos from different ingredients and place an order.
+
+The administrator can view all orders, change their status, and view reports.
