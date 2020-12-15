@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    void saveOrder(Order order);
+    Order saveOrder(Order order);
     Page<OrderVo> getOrdersByUser(User user, int pageNum);
     List<Order> getOrdersByUser(User user);
     Page<OrderVo> getAllOrders(int pageNum);

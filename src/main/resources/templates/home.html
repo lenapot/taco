@@ -7,7 +7,7 @@
     <link rel="stylesheet"
           href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
 
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Taco cloud</title>
 </head>
 <body>
@@ -20,13 +20,13 @@
             <input type="submit" value="Logout"/>
         </form>
         <a th:href="@{/orders}" id="orders">Show my orders</a>
-        <br>
+        <br/>
         <a th:href="@{/tacos}" id="tacos">Show my tacos</a>
-        <br>
+        <br/>
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/orders}" id="admin">Admin</a>
-        <br>
+        <br/>
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/report/ordersPerMonth}" id="report1">Report: Orders per month</a>
-         <br>
+        <br/>
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/report/cities}" id="report2">Report: Cities that order most tacos</a>
     </div>
 
