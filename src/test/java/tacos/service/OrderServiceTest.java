@@ -17,16 +17,14 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class OrderServiceTest {
 
-
-
     @Autowired
     OrderService orderService;
 
     @MockBean
     OrderRepository orderRepository;
+
     @Test
     public void addOrder() {
-
         when(orderRepository.save(Mockito.any(Order.class)))
                 .thenAnswer(i -> i.getArguments()[0]);
         Order order = new Order();
@@ -36,6 +34,7 @@ public class OrderServiceTest {
  		order.setName("Test");
         Order createdOrder = orderService.saveOrder(order);
 		Assert.assertNotNull(createdOrder);
+        Mockito.verify(orderRepository, Mockito.times(1)).save(order);
 
     }
 
