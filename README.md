@@ -47,5 +47,5 @@ File data.sql inserts some example rows to database.
 
 ## Run test
 The repository contains some test cases to cover both api test and service test
-	> ./gradlew test
+> ./gradlew test
 
