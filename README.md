@@ -5,6 +5,7 @@ It uses the following technologies:
 - Spring Boot,
 - Spring Security,
 - Spring Data JPA,
+- Spring MVC,
 - Liquibase,
 - Thymeleaf,
 - Bootstrap.
