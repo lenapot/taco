@@ -50,3 +50,5 @@ File **data.sql** inserts some example rows to database.
 The repository contains some test cases to cover both api test and service test
 > ./gradlew test
 
+The project uses test database for testing called 'tacocloud-test'. It can be changed in the application-test.properties.
+
