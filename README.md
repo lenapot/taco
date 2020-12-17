@@ -25,11 +25,12 @@ You **have to** create the database before running the project.
 
 Master changelog file contains references to init.sql and data.sql.
 
-File init.sql contains scripts to:
+File **init.sql** contains scripts to:
    - create tables: ingredient, roles, taco_type, taco, taco_type_ingredients, taco_order, users, users_roles, 
    - insert values to ingredient, roles, 
-   - create default user admin/1
-File data.sql inserts some example rows to database.
+   - create default user: admin/1
+   
+File **data.sql** inserts some example rows to database.
 
 ## Getting started
 
