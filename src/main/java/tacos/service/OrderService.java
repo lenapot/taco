@@ -1,9 +1,9 @@
 package tacos.service;
 
 import org.springframework.data.domain.Page;
-import tacos.Order;
-import tacos.OrderVo;
-import tacos.User;
+import tacos.domain.Order;
+import tacos.vo.OrderVo;
+import tacos.domain.User;
 
 import java.util.List;
 

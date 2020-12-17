@@ -38,6 +38,7 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation 'org.junit.jupiter:junit-jupiter'
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.3.6.RELEASE'
+    implementation 'junit:junit:4.12'
 
 }
 

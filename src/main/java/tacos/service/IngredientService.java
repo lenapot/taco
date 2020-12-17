@@ -1,6 +1,6 @@
 package tacos.service;
 
-import tacos.Ingredient;
+import tacos.domain.Ingredient;
 
 import java.util.List;
 

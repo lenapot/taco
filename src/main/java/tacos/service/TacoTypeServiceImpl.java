@@ -5,10 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import tacos.Order;
-import tacos.TacoType;
-import tacos.User;
-import tacos.data.TacoTypeRepository;
+import tacos.domain.Order;
+import tacos.domain.TacoType;
+import tacos.domain.User;
+import tacos.repo.TacoTypeRepository;
 import tacos.props.OrderProps;
 
 import java.util.List;

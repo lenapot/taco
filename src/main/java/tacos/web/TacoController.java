@@ -7,8 +7,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tacos.TacoType;
-import tacos.User;
+import tacos.domain.TacoType;
+import tacos.domain.User;
 import tacos.service.TacoTypeService;
 
 import java.util.List;

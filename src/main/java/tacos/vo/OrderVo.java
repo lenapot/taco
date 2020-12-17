@@ -1,8 +1,9 @@
-package tacos;
+package tacos.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import tacos.domain.Order;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;

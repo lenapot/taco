@@ -1,7 +1,7 @@
 package tacos.service;
 
 
-import tacos.OrderVo;
+import tacos.vo.OrderVo;
 
 import java.util.List;
 import java.util.Map;

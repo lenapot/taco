@@ -1,4 +1,4 @@
-package tacos.security;
+package tacos.web;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -6,7 +6,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import tacos.OrderVo;
+import tacos.vo.OrderVo;
 import tacos.props.OrderPerCitiesReportProps;
 import tacos.service.ReportService;
 import tacos.utils.ReportUtils;

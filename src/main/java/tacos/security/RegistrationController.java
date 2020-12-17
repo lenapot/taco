@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import tacos.Role;
-import tacos.data.RoleRepository;
-import tacos.data.UserRepository;
+import tacos.domain.Role;
+import tacos.repo.RoleRepository;
+import tacos.repo.UserRepository;
 
 import java.util.Arrays;
 

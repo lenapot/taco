@@ -6,11 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tacos.Order;
-import tacos.OrderVo;
+import tacos.domain.Order;
+import tacos.vo.OrderVo;
 import tacos.service.OrderService;
 
-import javax.xml.ws.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import tacos.Order;
-import tacos.OrderVo;
-import tacos.User;
-import tacos.data.OrderRepository;
+import tacos.domain.Order;
+import tacos.vo.OrderVo;
+import tacos.domain.User;
+import tacos.repo.OrderRepository;
 import tacos.props.OrderProps;
 
 import java.util.List;

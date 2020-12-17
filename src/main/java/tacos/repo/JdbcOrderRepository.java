@@ -1,12 +1,11 @@
-package tacos.data;
+package tacos.repo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
-import tacos.Order;
-import tacos.Taco;
+import tacos.domain.Order;
+import tacos.domain.Taco;
 
 import java.util.Date;
 import java.util.HashMap;

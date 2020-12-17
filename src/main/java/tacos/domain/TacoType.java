@@ -1,6 +1,7 @@
-package tacos;
+package tacos.domain;
 
 import lombok.Data;
+import tacos.domain.Ingredient;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -1,7 +1,7 @@
-package tacos.data;
+package tacos.repo;
 
 import org.springframework.data.repository.CrudRepository;
-import tacos.Role;
+import tacos.domain.Role;
 
 public interface RoleRepository extends CrudRepository<Role, Long> {
 

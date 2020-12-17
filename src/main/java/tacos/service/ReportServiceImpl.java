@@ -2,8 +2,8 @@ package tacos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tacos.OrderVo;
-import tacos.data.OrderRepository;
+import tacos.vo.OrderVo;
+import tacos.repo.OrderRepository;
 
 import java.util.*;
 

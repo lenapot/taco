@@ -1,13 +1,13 @@
-package tacos.data;
+package tacos.repo;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import tacos.Order;
-import tacos.OrderVo;
-import tacos.User;
+import tacos.domain.Order;
+import tacos.vo.OrderVo;
+import tacos.domain.User;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query("select ord.city as city, count(ord.id) as ordCount from Order ord group by ord.city order by ordCount DESC")
     List<Map<String, Integer>> getOrdersCountByCities();
 
-    @Query(value = "select new tacos.OrderVo(ord.id, ord.name, concat(ord.state, ' ',  ord.city, ' ', ord.street), " +
+    @Query(value = "select new tacos.vo.OrderVo(ord.id, ord.name, concat(ord.state, ' ',  ord.city, ' ', ord.street), " +
             "ord.placedAt) \n" +
             "from Order ord\n" +
             "order by ord.placedAt DESC")
